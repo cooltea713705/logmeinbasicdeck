@@ -1,4 +1,4 @@
-package com.rros.logmeinbasicdeck;
+package logmeinbasicdeck;
 
 public interface Shufflable {
     void shuffle();

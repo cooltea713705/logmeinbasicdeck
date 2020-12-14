@@ -1,6 +1,6 @@
-package com.rros.logmeinbasicdeck.pojo;
+package logmeinbasicdeck.pojo;
 
-import com.rros.logmeinbasicdeck.record.*;
+import logmeinbasicdeck.record.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,8 +22,8 @@ public class Game {
         this.gameDeck = gameDeck;
     }
 
-    public Deck createDeck(Set<Suit<?>> suits, Set<Value> values) {
-        return new Deck(suits, values);
+    public Deck createDeck(Set<Suit<?>> suits, Set<CardValue<?>> cardValues) {
+        return new Deck(suits, cardValues);
     }
 
     public void addPlayer(Player player) {

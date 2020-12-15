@@ -61,4 +61,11 @@ public class Player {
     public int hashCode() {
         return Objects.hash(uuid, game);
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "uuid=" + uuid +
+                '}';
+    }
 }

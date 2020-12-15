@@ -28,4 +28,13 @@ public record Card(UUID uuid, Deck deck, Suit<?> suit, CardValue<?> cardValue) {
     public int hashCode() {
         return Objects.hash(deck.getUuid(), suit, cardValue);
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "uuid=" + uuid +
+                ", suit=" + suit +
+                ", cardValue=" + cardValue +
+                '}';
+    }
 }

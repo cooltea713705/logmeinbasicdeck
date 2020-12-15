@@ -1,6 +1,7 @@
 package com.rros.logmeinbasicdeck.service;
 
 import com.rros.logmeinbasicdeck.pojo.Game;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,7 +14,16 @@ import java.util.stream.Collectors;
 public class GameServiceImpl implements GameService {
 
     // TODO 2020-12-14 rosr replace with repo
-    private final Set<Game> games = new HashSet<>();
+    private final Set<Game> games;
+
+    @Autowired
+    public GameServiceImpl() {
+        this(new HashSet<>());
+    }
+
+    GameServiceImpl(Set<Game> games) {
+        this.games = games;
+    }
 
     @Override
     public Set<UUID> get() {

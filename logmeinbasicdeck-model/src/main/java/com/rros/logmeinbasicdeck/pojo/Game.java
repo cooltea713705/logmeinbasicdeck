@@ -34,7 +34,6 @@ public class Game {
     }
 
     public void addPlayer(Player player) {
-        // TODO 2020-12-14 rosr handle duplicate player
         players.put(player, new HashSet<>());
     }
 

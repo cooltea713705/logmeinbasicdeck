@@ -46,6 +46,16 @@ class GameServiceImplTest {
     }
 
     @Test
+    void get_single_nominal_flow() {
+        games = Collections.singletonMap(RANDOM_GAME_UUID, gameMock);
+        gameService = new GameServiceImpl(deckServiceMock, games);
+
+        Game game = gameService.get(RANDOM_GAME_UUID);
+
+        assertThat(game).isEqualTo(gameMock);
+    }
+
+    @Test
     void create_nominal_flow() {
         UUID uuid = gameService.create();
 
@@ -58,7 +68,7 @@ class GameServiceImplTest {
 
         gameService.delete(RANDOM_GAME_UUID);
 
-        assertThat(games).doesNotContain(Map.entry(RANDOM_GAME_UUID, gameMock));
+        assertThat(games).doesNotContainEntry(RANDOM_GAME_UUID, gameMock);
     }
 
     @Test

@@ -31,6 +31,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Game get(UUID gameId) {
+        return Objects.requireNonNull(games.get(gameId));
+    }
+
+    @Override
     public UUID create() {
         Game game = new Game();
         Game result = games.put(game.getUuid(), game);
@@ -44,7 +49,7 @@ public class GameServiceImpl implements GameService {
     public void delete(UUID uuid) {
         Game result = games.remove(uuid);
         if (result == null) {
-            throw new IllegalStateException("Could not remove game");
+            throw new IllegalArgumentException("Could not remove game");
         }
     }
 

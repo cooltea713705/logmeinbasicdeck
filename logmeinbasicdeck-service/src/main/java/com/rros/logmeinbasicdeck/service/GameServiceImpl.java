@@ -48,11 +48,14 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    // TODO 2020-12-15 rosr move to GameDeckService#add(Game game, UUID deck)?
     @Override
     public void add(UUID gameId, UUID deckId) {
         Game addDeckToGame = Objects.requireNonNull(games.get(gameId));
 
         Deck deck = deckService.get(deckId);
+
+        // TODO 2020-12-15 rosr implement integrity constraints (check suits/cardValues)
         addDeckToGame.addDeck(deck);
     }
 }

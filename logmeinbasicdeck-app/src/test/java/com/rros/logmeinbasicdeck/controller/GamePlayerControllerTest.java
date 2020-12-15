@@ -10,10 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -62,14 +59,15 @@ class GamePlayerControllerTest {
 
     @Test
     void get_nominal_flow() {
-        List<Player> players = Collections.singletonList(mock(Player.class));
+        Player playerMock = mock(Player.class);
+        List<Player> players = Collections.singletonList(playerMock);
         when(gamePlayerServiceMock.get(gameMock)).thenReturn(players);
 
-        List<Player> actualPlayers = gamePlayerController.get(RANDOM_GAME_UUID);
+        List<Map.Entry<Player, Integer>> entries = gamePlayerController.get(RANDOM_GAME_UUID);
 
         verify(gameServiceMock).get(RANDOM_GAME_UUID);
         verify(gamePlayerServiceMock).get(gameMock);
-        assertThat(actualPlayers).isEqualTo(players);
+        assertThat(entries).containsExactly(new AbstractMap.SimpleEntry<>(playerMock, 0));
     }
 
     @Test

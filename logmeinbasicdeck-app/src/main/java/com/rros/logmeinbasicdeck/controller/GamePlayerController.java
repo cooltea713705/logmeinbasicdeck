@@ -8,8 +8,11 @@ import com.rros.logmeinbasicdeck.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/games/{gameId}/players")
@@ -37,9 +40,16 @@ public class GamePlayerController {
     }
 
     @GetMapping
-    public List<Player> get(@PathVariable("gameId") UUID gameId) {
+    public List<Map.Entry<Player, Integer>> get(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);
-        return gamePlayerService.get(game);
+        List<Player> players = gamePlayerService.get(game);
+        Map<Player, Integer> collect = players.stream().collect(
+                Collectors.toMap(
+                        player -> player,
+                        // TODO 2020-12-15 rosr move to player (getCardsIntValue())
+                        player -> player.getCards().stream().map(card -> card.cardValue().getIntValue()).reduce(0, Integer::sum)));
+        // TODO 2020-12-15 rosr move to service? (where should aggregation be handled?)
+        return collect.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toList());
     }
 
     @PostMapping("/{playerId}/dealCards")

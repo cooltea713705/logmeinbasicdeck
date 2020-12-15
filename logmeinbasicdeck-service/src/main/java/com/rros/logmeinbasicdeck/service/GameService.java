@@ -6,7 +6,9 @@ import java.util.UUID;
 public interface GameService {
     Set<UUID> get();
 
-    UUID add();
+    UUID create();
 
     void delete(UUID uuid);
+
+    void add(UUID gameId, UUID deckId);
 }

@@ -1,40 +1,40 @@
 package com.rros.logmeinbasicdeck.service;
 
 import com.rros.logmeinbasicdeck.pojo.Game;
+import com.rros.logmeinbasicdeck.record.Deck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class GameServiceImpl implements GameService {
 
     // TODO 2020-12-14 rosr replace with repo
-    private final Set<Game> games;
+    private final Map<UUID, Game> games;
+    private final DeckService deckService;
 
     @Autowired
-    public GameServiceImpl() {
-        this(new HashSet<>());
+    public GameServiceImpl(DeckService deckService) {
+        this(deckService, new ConcurrentHashMap<>());
     }
 
-    GameServiceImpl(Set<Game> games) {
+    GameServiceImpl(DeckService deckService, Map<UUID, Game> games) {
+        this.deckService = deckService;
         this.games = games;
     }
 
     @Override
     public Set<UUID> get() {
-        return games.stream().map(Game::getUuid).collect(Collectors.toSet());
+        return new HashSet<>(games.keySet());
     }
 
     @Override
-    public UUID add() {
+    public UUID create() {
         Game game = new Game();
-        boolean result = games.add(game);
-        if (!result) {
+        Game result = games.put(game.getUuid(), game);
+        if (result != null) {
             throw new IllegalStateException("Could not add game");
         }
         return game.getUuid();
@@ -42,9 +42,17 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void delete(UUID uuid) {
-        boolean result = games.removeIf(game -> Objects.equals(game.getUuid(), uuid));
-        if (!result) {
+        Game result = games.remove(uuid);
+        if (result == null) {
             throw new IllegalStateException("Could not remove game");
         }
+    }
+
+    @Override
+    public void add(UUID gameId, UUID deckId) {
+        Game addDeckToGame = Objects.requireNonNull(games.get(gameId));
+
+        Deck deck = deckService.get(deckId);
+        addDeckToGame.addDeck(deck);
     }
 }

@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 class GameControllerTest {
 
     public static final UUID RANDOM_UUID = UUID.randomUUID();
+
     @Mock
     private GameService gameServiceMock;
 
@@ -37,11 +38,11 @@ class GameControllerTest {
 
     @Test
     void add_nominal_flow() {
-        when(gameServiceMock.add()).thenReturn(RANDOM_UUID);
+        when(gameServiceMock.create()).thenReturn(RANDOM_UUID);
 
         UUID uuid = gameController.add();
 
-        verify(gameServiceMock).add();
+        verify(gameServiceMock).create();
         assertThat(uuid).isEqualTo(RANDOM_UUID);
     }
 

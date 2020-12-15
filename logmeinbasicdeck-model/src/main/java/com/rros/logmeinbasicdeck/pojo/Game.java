@@ -1,6 +1,8 @@
 package com.rros.logmeinbasicdeck.pojo;
 
-import com.rros.logmeinbasicdeck.record.*;
+import com.rros.logmeinbasicdeck.record.Card;
+import com.rros.logmeinbasicdeck.record.Deck;
+import com.rros.logmeinbasicdeck.record.Player;
 
 import java.util.*;
 
@@ -11,37 +13,22 @@ public class Game {
     private final Map<Player, Set<Card>> players;
     private final Set<Deck> decks = new HashSet<>();
     private final Set<Card> gameDeck = new HashSet<>();
-    private final Set<? extends Suit<?>> suits;
-    private final Set<? extends CardValue<?>> cardValues;
 
     public Game() {
-        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>(), EnumSet.allOf(StandardSuit.class), EnumSet.allOf(StandardCardValue.class));
+        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>());
     }
 
-    public Game(Set<Suit<?>> suits, Set<CardValue<?>> cardValues) {
-        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>(), suits, cardValues);
-    }
-
-    private Game(UUID uuid, Map<Player, Set<Card>> players, Set<Deck> decks, Set<? extends Suit<?>> suits, Set<? extends CardValue<?>> cardValues) {
+    private Game(UUID uuid, Map<Player, Set<Card>> players, Set<Deck> decks) {
         this.uuid = uuid;
         this.players = players;
         decks.forEach(this::addDeck);
-        this.suits = suits;
-        this.cardValues = cardValues;
     }
 
     public UUID getUuid() {
         return uuid;
     }
 
-    public Deck createDeck() {
-        return new Deck(this, suits, cardValues);
-    }
-
     public void addDeck(Deck deck) {
-        if (!Objects.equals(this, deck.getGame())) {
-            throw new IllegalArgumentException("Adding a deck from another game is illegal");
-        }
         decks.add(deck);
         gameDeck.addAll(deck);
     }

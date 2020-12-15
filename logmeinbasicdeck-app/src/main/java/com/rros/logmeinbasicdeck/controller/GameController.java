@@ -26,7 +26,7 @@ public class GameController {
 
     @PostMapping
     public UUID add() {
-        return gameService.add();
+        return gameService.create();
     }
 
     @DeleteMapping("/{id}")

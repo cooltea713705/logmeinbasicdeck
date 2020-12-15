@@ -20,6 +20,8 @@ public class GameDeckServiceImpl implements GameDeckService {
     @Override
     public void add(Game game, UUID deckId) {
         Deck deck = deckService.get(deckId);
+
+        // TODO 2020-12-15 rosr implement integrity constraints (check suits, card values)
         game.addDeck(deck);
     }
 }

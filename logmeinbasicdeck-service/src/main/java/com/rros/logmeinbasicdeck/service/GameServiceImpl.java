@@ -1,6 +1,5 @@
 package com.rros.logmeinbasicdeck.service;
 
-import com.rros.logmeinbasicdeck.model.Deck;
 import com.rros.logmeinbasicdeck.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,16 +50,5 @@ public class GameServiceImpl implements GameService {
         if (result == null) {
             throw new IllegalArgumentException("Could not remove game");
         }
-    }
-
-    // TODO 2020-12-15 rosr move to GameDeckService#add(Game game, UUID deck)?
-    @Override
-    public void add(UUID gameId, UUID deckId) {
-        Game addDeckToGame = Objects.requireNonNull(games.get(gameId));
-
-        Deck deck = deckService.get(deckId);
-
-        // TODO 2020-12-15 rosr implement integrity constraints (check suits/cardValues)
-        addDeckToGame.addDeck(deck);
     }
 }

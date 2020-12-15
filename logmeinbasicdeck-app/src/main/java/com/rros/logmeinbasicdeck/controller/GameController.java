@@ -1,47 +1,36 @@
 package com.rros.logmeinbasicdeck.controller;
 
-import com.rros.logmeinbasicdeck.pojo.Game;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+// TODO 2020-12-14 rosr exceptionController
 @RestController
 @RequestMapping("games")
 public class GameController {
 
+    private final GameService gameService;
+
     @Autowired
-    private GameService gameService;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     @GetMapping
     public Set<UUID> get() {
-        return gameService.get().stream().map(Game::getUuid).collect(Collectors.toSet());
+        return gameService.get();
     }
 
     @PostMapping
     public UUID add() {
-        Game game = new Game();
-        boolean result = gameService.add(game);
-        if (!result) {
-            throw new IllegalStateException("Could not add game");
-        }
-        return game.getUuid();
+        return gameService.add();
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") UUID uuid) {
-        boolean result = gameService.remove(uuid);
-        if (!result) {
-            throw new IllegalStateException("Could not remove game");
-        }
+        gameService.delete(uuid);
     }
-
-    @GetMapping("/{id}")
-    public Game get(@PathVariable("id") UUID uuid) {
-        return gameService.getGame(uuid);
-    }
-
 }

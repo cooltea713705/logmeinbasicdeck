@@ -7,11 +7,9 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface GameService {
-    Set<Game> get();
+    Set<UUID> get();
 
-    boolean add(Game game);
+    UUID add();
 
-    boolean remove(UUID uuid);
-
-    Game getGame(UUID uuid);
+    void delete(UUID uuid);
 }

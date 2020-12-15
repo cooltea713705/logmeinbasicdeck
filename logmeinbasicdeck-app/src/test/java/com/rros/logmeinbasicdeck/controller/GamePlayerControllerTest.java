@@ -1,6 +1,6 @@
 package com.rros.logmeinbasicdeck.controller;
 
-import com.rros.logmeinbasicdeck.model.Game;
+import com.rros.logmeinbasicdeck.model.*;
 import com.rros.logmeinbasicdeck.service.GamePlayerService;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GamePlayerControllerTest {
@@ -69,6 +70,12 @@ class GamePlayerControllerTest {
 
     @Test
     void getCards_nominal_flow() {
+        Card card = new Card(mock(Deck.class), StandardSuit.DIAMONDS, StandardCardValue.JACK);
+        when(gamePlayerServiceMock.getCards(gameMock, RANDOM_PLAYER_UUID)).thenReturn(Collections.singletonList(card));
+        List<Card> cards = gamePlayerController.getCards(RANDOM_GAME_UUID, RANDOM_PLAYER_UUID);
 
+        verify(gameServiceMock).get(RANDOM_GAME_UUID);
+        verify(gamePlayerServiceMock).getCards(gameMock, RANDOM_PLAYER_UUID);
+        assertThat(cards).containsExactly(card);
     }
 }

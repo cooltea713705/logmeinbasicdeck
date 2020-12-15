@@ -1,6 +1,6 @@
 package com.rros.logmeinbasicdeck.controller;
 
-import com.rros.logmeinbasicdeck.pojo.Game;
+import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.service.GamePlayerService;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.junit.jupiter.api.BeforeEach;

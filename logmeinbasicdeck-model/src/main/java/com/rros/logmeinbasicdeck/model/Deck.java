@@ -1,6 +1,9 @@
-package com.rros.logmeinbasicdeck.record;
+package com.rros.logmeinbasicdeck.model;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Deck extends HashSet<Card> {
     private final UUID uuid;

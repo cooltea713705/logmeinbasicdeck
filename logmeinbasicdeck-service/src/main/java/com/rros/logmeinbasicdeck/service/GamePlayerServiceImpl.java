@@ -1,11 +1,12 @@
 package com.rros.logmeinbasicdeck.service;
 
-import com.rros.logmeinbasicdeck.pojo.Game;
-import com.rros.logmeinbasicdeck.record.Player;
+import com.rros.logmeinbasicdeck.model.Game;
+import com.rros.logmeinbasicdeck.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -45,6 +46,7 @@ public class GamePlayerServiceImpl implements GamePlayerService {
 
     @Override
     public void dealCards(Game game, UUID playerId, int nbCards) {
-
+        Player player = Objects.requireNonNull(players.get(playerId));
+        player.dealCards(nbCards);
     }
 }

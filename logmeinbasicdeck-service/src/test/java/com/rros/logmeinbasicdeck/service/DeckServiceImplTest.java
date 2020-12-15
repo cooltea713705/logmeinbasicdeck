@@ -1,6 +1,6 @@
 package com.rros.logmeinbasicdeck.service;
 
-import com.rros.logmeinbasicdeck.record.Deck;
+import com.rros.logmeinbasicdeck.model.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

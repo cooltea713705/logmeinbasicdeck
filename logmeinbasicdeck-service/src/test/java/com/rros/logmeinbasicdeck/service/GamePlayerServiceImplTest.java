@@ -1,7 +1,7 @@
 package com.rros.logmeinbasicdeck.service;
 
-import com.rros.logmeinbasicdeck.pojo.Game;
-import com.rros.logmeinbasicdeck.record.Player;
+import com.rros.logmeinbasicdeck.model.Game;
+import com.rros.logmeinbasicdeck.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,14 +10,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class GamePlayerServiceImplTest {
 
+    public static final int NB_CARDS = new Random().nextInt();
+    public static final UUID RANDOM_PLAYER_UUID = UUID.randomUUID();
     private GamePlayerServiceImpl gamePlayerService;
     private HashMap<UUID, Player> players;
 
@@ -51,5 +55,14 @@ class GamePlayerServiceImplTest {
         gamePlayerService.delete(gameMock, playerId);
 
         assertThat(players).doesNotContainEntry(playerId, player);
+    }
+
+    @Test
+    void dealCards_nominal_flow() {
+        Player playerMock = mock(Player.class);
+        players.put(RANDOM_PLAYER_UUID, playerMock);
+        gamePlayerService.dealCards(gameMock, RANDOM_PLAYER_UUID, NB_CARDS);
+
+        verify(playerMock).dealCards(NB_CARDS);
     }
 }

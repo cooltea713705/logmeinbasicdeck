@@ -1,4 +1,4 @@
-package com.rros.logmeinbasicdeck.record;
+package com.rros.logmeinbasicdeck.model;
 
 import java.util.Locale;
 

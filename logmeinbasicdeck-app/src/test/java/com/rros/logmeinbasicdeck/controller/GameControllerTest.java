@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GameControllerTest {
 
-    public static final UUID RANDOM_UUID = UUID.randomUUID();
+    public static final UUID RANDOM_GAME_UUID = UUID.randomUUID();
 
     @Mock
     private GameService gameServiceMock;
@@ -28,28 +28,28 @@ class GameControllerTest {
 
     @Test
     void get_nominal_flow() {
-        when(gameServiceMock.get()).thenReturn(Collections.singleton(RANDOM_UUID));
+        when(gameServiceMock.get()).thenReturn(Collections.singleton(RANDOM_GAME_UUID));
 
         Set<UUID> uuids = gameController.get();
 
         verify(gameServiceMock).get();
-        assertThat(uuids).containsExactly(RANDOM_UUID);
+        assertThat(uuids).containsExactly(RANDOM_GAME_UUID);
     }
 
     @Test
     void add_nominal_flow() {
-        when(gameServiceMock.create()).thenReturn(RANDOM_UUID);
+        when(gameServiceMock.create()).thenReturn(RANDOM_GAME_UUID);
 
         UUID uuid = gameController.add();
 
         verify(gameServiceMock).create();
-        assertThat(uuid).isEqualTo(RANDOM_UUID);
+        assertThat(uuid).isEqualTo(RANDOM_GAME_UUID);
     }
 
     @Test
     void delete_nominal_flow() {
-        gameController.delete(RANDOM_UUID);
+        gameController.delete(RANDOM_GAME_UUID);
 
-        verify(gameServiceMock).delete(RANDOM_UUID);
+        verify(gameServiceMock).delete(RANDOM_GAME_UUID);
     }
 }

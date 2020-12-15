@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class DeckServiceImplTest {
 
-    public static final UUID RANDOM_UUID = UUID.randomUUID();
+    public static final UUID RANDOM_DECK_UUID = UUID.randomUUID();
 
     private DeckServiceImpl deckService;
     private Map<UUID, Deck> decks;
@@ -40,10 +40,10 @@ class DeckServiceImplTest {
 
     @Test
     void get_nominal_flow() {
-        decks = Collections.singletonMap(RANDOM_UUID, deckMock);
+        decks = Collections.singletonMap(RANDOM_DECK_UUID, deckMock);
         deckService = new DeckServiceImpl(decks);
 
-        Deck actualDeck = deckService.get(RANDOM_UUID);
+        Deck actualDeck = deckService.get(RANDOM_DECK_UUID);
 
         assertThat(actualDeck).isEqualTo(deckMock);
     }

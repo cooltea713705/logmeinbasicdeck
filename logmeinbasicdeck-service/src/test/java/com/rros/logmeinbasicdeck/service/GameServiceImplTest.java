@@ -1,7 +1,6 @@
 package com.rros.logmeinbasicdeck.service;
 
 import com.rros.logmeinbasicdeck.pojo.Game;
-import com.rros.logmeinbasicdeck.record.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GameServiceImplTest {
@@ -69,18 +67,5 @@ class GameServiceImplTest {
         gameService.delete(RANDOM_GAME_UUID);
 
         assertThat(games).doesNotContainEntry(RANDOM_GAME_UUID, gameMock);
-    }
-
-    @Test
-    void add_nominal_flow() {
-        Game gameMock = mock(Game.class);
-        games.put(RANDOM_GAME_UUID, gameMock);
-        Deck deckMock = mock(Deck.class);
-        when(deckServiceMock.get(RANDOM_DECK_UUID)).thenReturn(deckMock);
-
-        gameService.add(RANDOM_GAME_UUID, RANDOM_DECK_UUID);
-
-        verify(deckServiceMock).get(RANDOM_DECK_UUID);
-        verify(gameMock).addDeck(deckMock);
     }
 }

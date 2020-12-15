@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/logmeinbasicdeck.iml" filepath="$PROJECT_DIR$/logmeinbasicdeck.iml" />
       <module fileurl="file://$PROJECT_DIR$/logmeinbasicdeck-app/logmeinbasicdeck-app.iml" filepath="$PROJECT_DIR$/logmeinbasicdeck-app/logmeinbasicdeck-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/logmeinbasicdeck-model/logmeinbasicdeck-model.iml" filepath="$PROJECT_DIR$/logmeinbasicdeck-model/logmeinbasicdeck-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logmeinbasicdeck-service/logmeinbasicdeck-service.iml" filepath="$PROJECT_DIR$/logmeinbasicdeck-service/logmeinbasicdeck-service.iml" />
     </modules>
   </component>
 </project>

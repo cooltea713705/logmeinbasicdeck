@@ -6,6 +6,7 @@
     <modules>
         <module>logmeinbasicdeck-model</module>
         <module>logmeinbasicdeck-app</module>
+        <module>logmeinbasicdeck-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

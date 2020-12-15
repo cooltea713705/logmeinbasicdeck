@@ -1,4 +1,4 @@
-package logmeinbasicdeck.record;
+package com.rros.logmeinbasicdeck.record;
 
 public enum StandardCardValue implements CardValue<StandardCardValue> {
     // TODO 2020-12-14 rosr make smarter?

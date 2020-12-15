@@ -34,6 +34,9 @@ class GamePlayerControllerTest {
     @Mock
     private Game gameMock;
 
+    @Mock
+    private Player playerMock;
+
     @BeforeEach
     void setUp() {
         when(gameServiceMock.get(RANDOM_GAME_UUID)).thenReturn(gameMock);
@@ -59,15 +62,16 @@ class GamePlayerControllerTest {
 
     @Test
     void get_nominal_flow() {
-        Player playerMock = mock(Player.class);
+        when(playerMock.uuid()).thenReturn(RANDOM_PLAYER_UUID);
+
         List<Player> players = Collections.singletonList(playerMock);
         when(gamePlayerServiceMock.get(gameMock)).thenReturn(players);
 
-        List<Map.Entry<Player, Integer>> entries = gamePlayerController.get(RANDOM_GAME_UUID);
+        List<Map.Entry<UUID, Integer>> entries = gamePlayerController.get(RANDOM_GAME_UUID);
 
         verify(gameServiceMock).get(RANDOM_GAME_UUID);
         verify(gamePlayerServiceMock).get(gameMock);
-        assertThat(entries).containsExactly(new AbstractMap.SimpleEntry<>(playerMock, 0));
+        assertThat(entries).containsExactly(new AbstractMap.SimpleEntry<>(RANDOM_PLAYER_UUID, 0));
     }
 
     @Test

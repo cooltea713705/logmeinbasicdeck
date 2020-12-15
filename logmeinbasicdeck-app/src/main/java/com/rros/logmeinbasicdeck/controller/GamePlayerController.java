@@ -40,12 +40,12 @@ public class GamePlayerController {
     }
 
     @GetMapping
-    public List<Map.Entry<Player, Integer>> get(@PathVariable("gameId") UUID gameId) {
+    public List<Map.Entry<UUID, Integer>> get(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);
         List<Player> players = gamePlayerService.get(game);
-        Map<Player, Integer> collect = players.stream().collect(
+        Map<UUID, Integer> collect = players.stream().collect(
                 Collectors.toMap(
-                        player -> player,
+                        Player::uuid,
                         // TODO 2020-12-15 rosr move to player (getCardsIntValue())
                         player -> player.getCards().stream().map(card -> card.cardValue().getIntValue()).reduce(0, Integer::sum)));
         // TODO 2020-12-15 rosr move to service? (where should aggregation be handled?)

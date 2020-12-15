@@ -12,7 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="logmeinbasicdeck" target="1.8" />
+      <module name="logmeinbasicdeck" target="15" />
       <module name="logmeinbasicdeck-app" target="15" />
       <module name="logmeinbasicdeck-model" target="15" />
       <module name="logmeinbasicdeck-service" target="15" />
@@ -20,7 +20,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="logmeinbasicdeck" options="-parameters" />
+      <module name="logmeinbasicdeck" options="" />
       <module name="logmeinbasicdeck-app" options="-parameters" />
       <module name="logmeinbasicdeck-model" options="-parameters" />
       <module name="logmeinbasicdeck-service" options="-parameters" />

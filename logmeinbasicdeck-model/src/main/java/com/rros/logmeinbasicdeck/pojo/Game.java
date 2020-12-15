@@ -9,20 +9,41 @@ public class Game {
     // todo consider whether having a GamePlayer association is relevant or not (dealCards(int nbCards) seem to be a method of that association)
     private final UUID uuid;
     private final Map<Player, Set<Card>> players;
-    private final Set<Deck> gameDeck;
+    private final Set<Deck> decks = new HashSet<>();
+    private final Set<Card> gameDeck = new HashSet<>();
+    private final Set<? extends Suit<?>> suits;
+    private final Set<? extends CardValue<?>> cardValues;
 
     public Game() {
-        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>());
+        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>(), EnumSet.allOf(StandardSuit.class), EnumSet.allOf(StandardCardValue.class));
     }
 
-    private Game(UUID uuid, Map<Player, Set<Card>> players, Set<Deck> gameDeck) {
+    public Game(Set<Suit<?>> suits, Set<CardValue<?>> cardValues) {
+        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>(), suits, cardValues);
+    }
+
+    private Game(UUID uuid, Map<Player, Set<Card>> players, Set<Deck> decks, Set<? extends Suit<?>> suits, Set<? extends CardValue<?>> cardValues) {
         this.uuid = uuid;
         this.players = players;
-        this.gameDeck = gameDeck;
+        decks.forEach(this::addDeck);
+        this.suits = suits;
+        this.cardValues = cardValues;
     }
 
-    public Deck createDeck(Set<Suit<?>> suits, Set<CardValue<?>> cardValues) {
-        return new Deck(suits, cardValues);
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public Deck createDeck() {
+        return new Deck(this, suits, cardValues);
+    }
+
+    public void addDeck(Deck deck) {
+        if (!Objects.equals(this, deck.getGame())) {
+            throw new IllegalArgumentException("Adding a deck from another game is illegal");
+        }
+        decks.add(deck);
+        gameDeck.addAll(deck);
     }
 
     public void addPlayer(Player player) {

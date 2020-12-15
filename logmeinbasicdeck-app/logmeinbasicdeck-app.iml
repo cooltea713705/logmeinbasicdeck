@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_15">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_15_PREVIEW">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -38,7 +38,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.2" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:2.4.1" level="project" />
@@ -71,5 +70,8 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.7.0" level="project" />
+    <orderEntry type="module" module-name="logmeinbasicdeck-service" />
+    <orderEntry type="module" module-name="logmeinbasicdeck-model" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.2" level="project" />
   </component>
 </module>

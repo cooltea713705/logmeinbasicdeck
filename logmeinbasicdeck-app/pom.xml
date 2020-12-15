@@ -11,9 +11,9 @@
 
     <artifactId>logmeinbasicdeck-app</artifactId>
 
-    <properties>
+    <!--<properties>
         <java.version>15</java.version>
-    </properties>
+    </properties>-->
 
     <dependencies>
         <dependency>
@@ -26,6 +26,20 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.rros</groupId>
+            <artifactId>logmeinbasicdeck-service</artifactId>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>com.rros</groupId>
+            <artifactId>logmeinbasicdeck-model</artifactId>
+        </dependency>-->
+
+        <!--<dependency>
+            <groupId>com.rros</groupId>
+            <artifactId>logmeinbasicdeck-service</artifactId>
+        </dependency>-->
     </dependencies>
 
     <build>

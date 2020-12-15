@@ -61,6 +61,18 @@ class GamePlayerControllerTest {
     }
 
     @Test
+    void get_nominal_flow() {
+        List<Player> players = Collections.singletonList(mock(Player.class));
+        when(gamePlayerServiceMock.get(gameMock)).thenReturn(players);
+
+        List<Player> actualPlayers = gamePlayerController.get(RANDOM_GAME_UUID);
+
+        verify(gameServiceMock).get(RANDOM_GAME_UUID);
+        verify(gamePlayerServiceMock).get(gameMock);
+        assertThat(actualPlayers).isEqualTo(players);
+    }
+
+    @Test
     void dealCards_nominal_flow() {
         gamePlayerController.dealCards(RANDOM_GAME_UUID, RANDOM_PLAYER_UUID, NB_CARDS);
 

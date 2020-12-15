@@ -2,6 +2,7 @@ package com.rros.logmeinbasicdeck.controller;
 
 import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.Game;
+import com.rros.logmeinbasicdeck.model.Player;
 import com.rros.logmeinbasicdeck.service.GamePlayerService;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class GamePlayerController {
     public void delete(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId) {
         Game game = gameService.get(gameId);
         gamePlayerService.delete(game, playerId);
+    }
+
+    @GetMapping
+    public List<Player> get(@PathVariable("gameId") UUID gameId) {
+        Game game = gameService.get(gameId);
+        return gamePlayerService.get(game);
     }
 
     @PostMapping("/{playerId}/dealCards")

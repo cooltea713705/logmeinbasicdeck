@@ -9,12 +9,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GamePlayerServiceImplTest {
@@ -54,6 +53,17 @@ class GamePlayerServiceImplTest {
         gamePlayerService.delete(gameMock, RANDOM_PLAYER_UUID);
 
         assertThat(players).doesNotContainEntry(RANDOM_PLAYER_UUID, playerMock);
+    }
+
+    @Test
+    void get_nominal_flow() {
+        List<Player> players = Collections.singletonList(playerMock);
+        when(gameMock.getPlayers()).thenReturn(players);
+
+        List<Player> actualPlayers = gamePlayerService.get(gameMock);
+
+        verify(gameMock).getPlayers();
+        assertThat(actualPlayers).isEqualTo(players);
     }
 
     @Test

@@ -6,16 +6,16 @@ public class Game {
 
     // TODO 2020-12-15 rosr consider whether having a GamePlayer association is relevant or not (dealCards(int nbCards) seem to be a method of that association)
     private final UUID uuid;
-    private final Map<Player, Set<Card>> players;
+    private final List<Player> players;
     private final Set<Deck> decks = new HashSet<>();
     // TODO 2020-12-15 rosr handle concurrent accesses
     private final List<Card> gameDeck = new ArrayList<>();
 
     public Game() {
-        this(UUID.randomUUID(), new HashMap<>(), new HashSet<>());
+        this(UUID.randomUUID(), new ArrayList<>(), new HashSet<>());
     }
 
-    private Game(UUID gameId, Map<Player, Set<Card>> players, Set<Deck> decks) {
+    private Game(UUID gameId, List<Player> players, Set<Deck> decks) {
         this.uuid = gameId;
         this.players = players;
         decks.forEach(this::addDeck);
@@ -31,7 +31,7 @@ public class Game {
     }
 
     public void addPlayer(Player player) {
-        players.put(player, new HashSet<>());
+        players.add(player);
     }
 
     public void removePlayer(Player player) {
@@ -43,7 +43,7 @@ public class Game {
         return gameDeck;
     }
 
-    public Map<Player, Set<Card>> getPlayers() {
-        return players;
+    public List<Player> getPlayers() {
+        return new ArrayList<>(players);
     }
 }

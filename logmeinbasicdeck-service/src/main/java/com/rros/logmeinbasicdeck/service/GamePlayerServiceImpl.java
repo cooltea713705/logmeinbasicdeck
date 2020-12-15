@@ -57,4 +57,9 @@ public class GamePlayerServiceImpl implements GamePlayerService {
         Player player = Objects.requireNonNull(players.get(playerId));
         return player.getCards();
     }
+
+    @Override
+    public List<Player> get(Game game) {
+        return game.getPlayers();
+    }
 }

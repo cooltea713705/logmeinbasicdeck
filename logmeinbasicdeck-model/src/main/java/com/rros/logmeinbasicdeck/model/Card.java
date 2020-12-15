@@ -1,8 +1,15 @@
 package com.rros.logmeinbasicdeck.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Objects;
 import java.util.UUID;
 
+// https://github.com/FasterXML/jackson-future-ideas/issues/46
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+// XXX 2020-12-15 rosr ignore deck to avoid issue with presentation
+@JsonIgnoreProperties("deck")
 public record Card(UUID uuid, Deck deck, Suit<?> suit, CardValue<?> cardValue) {
     public Card(Deck deck, Suit<?> suit, CardValue<?> cardValue) {
         this(UUID.randomUUID(), deck, suit, cardValue);

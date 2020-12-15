@@ -66,4 +66,9 @@ class GamePlayerControllerTest {
         verify(gameServiceMock).get(RANDOM_GAME_UUID);
         verify(gamePlayerServiceMock).dealCards(gameMock, RANDOM_PLAYER_UUID, NB_CARDS);
     }
+
+    @Test
+    void getCards_nominal_flow() {
+
+    }
 }

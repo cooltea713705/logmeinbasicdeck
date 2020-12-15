@@ -1,10 +1,12 @@
 package com.rros.logmeinbasicdeck.service;
 
+import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -48,5 +50,11 @@ public class GamePlayerServiceImpl implements GamePlayerService {
     public void dealCards(Game game, UUID playerId, int nbCards) {
         Player player = Objects.requireNonNull(players.get(playerId));
         player.dealCards(nbCards);
+    }
+
+    @Override
+    public List<Card> getCards(Game game, UUID playerId) {
+        Player player = Objects.requireNonNull(players.get(playerId));
+        return player.getCards();
     }
 }

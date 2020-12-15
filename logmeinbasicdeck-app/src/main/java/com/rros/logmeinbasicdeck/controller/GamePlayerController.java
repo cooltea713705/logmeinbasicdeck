@@ -1,11 +1,13 @@
 package com.rros.logmeinbasicdeck.controller;
 
+import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.service.GamePlayerService;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,5 +39,11 @@ public class GamePlayerController {
     public void dealCards(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId, @RequestBody int nbCards) {
         Game game = gameService.get(gameId);
         gamePlayerService.dealCards(game, playerId, nbCards);
+    }
+
+    @GetMapping("/{playerId}/cards")
+    public List<Card> getCards(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId) {
+        Game game = gameService.get(gameId);
+        return gamePlayerService.getCards(game, playerId);
     }
 }

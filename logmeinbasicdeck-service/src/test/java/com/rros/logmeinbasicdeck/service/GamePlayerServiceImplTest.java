@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,9 +27,13 @@ class GamePlayerServiceImplTest {
     @Mock
     private Game gameMock;
 
+    @Mock
+    private Player playerMock;
+
     @BeforeEach
     void setUp() {
         players = new HashMap<>();
+        players.put(RANDOM_PLAYER_UUID, playerMock);
         gamePlayerService = new GamePlayerServiceImpl(players);
     }
 
@@ -48,21 +51,22 @@ class GamePlayerServiceImplTest {
 
     @Test
     void delete_nominal_flow() {
-        Player player = new Player(gameMock);
-        UUID playerId = player.uuid();
-        players.put(playerId, player);
+        gamePlayerService.delete(gameMock, RANDOM_PLAYER_UUID);
 
-        gamePlayerService.delete(gameMock, playerId);
-
-        assertThat(players).doesNotContainEntry(playerId, player);
+        assertThat(players).doesNotContainEntry(RANDOM_PLAYER_UUID, playerMock);
     }
 
     @Test
     void dealCards_nominal_flow() {
-        Player playerMock = mock(Player.class);
-        players.put(RANDOM_PLAYER_UUID, playerMock);
         gamePlayerService.dealCards(gameMock, RANDOM_PLAYER_UUID, NB_CARDS);
 
         verify(playerMock).dealCards(NB_CARDS);
+    }
+
+    @Test
+    void getCards_nominal_flow() {
+        gamePlayerService.getCards(gameMock, RANDOM_PLAYER_UUID);
+
+        verify(playerMock).getCards();
     }
 }

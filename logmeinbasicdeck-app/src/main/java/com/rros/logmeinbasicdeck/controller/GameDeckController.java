@@ -4,13 +4,12 @@ import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.service.GameDeckService;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController("/games/{gameId}/decks")
+@RestController
+@RequestMapping("/games/{gameId}/decks")
 public class GameDeckController {
 
     private final GameService gameService;
@@ -22,8 +21,8 @@ public class GameDeckController {
         this.gameDeckService = gameDeckService;
     }
 
-    @PostMapping("/{deckId}")
-    public void add(@PathVariable("gameId") UUID gameId, @PathVariable("deckId") UUID deckId) {
+    @PostMapping
+    public void add(@PathVariable("gameId") UUID gameId, @RequestBody UUID deckId) {
         Game game = gameService.get(gameId);
         gameDeckService.add(game, deckId);
     }

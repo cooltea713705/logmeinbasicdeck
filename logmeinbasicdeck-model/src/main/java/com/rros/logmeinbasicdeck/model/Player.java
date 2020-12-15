@@ -1,11 +1,14 @@
 package com.rros.logmeinbasicdeck.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Player {
     private final UUID uuid;
     private final Game game;
-    private final Set<Card> hand = new HashSet<>();
+    private final List<Card> cards = new ArrayList<>();
 
     private Player(UUID uuid, Game game) {
         this.uuid = uuid;
@@ -25,6 +28,10 @@ public class Player {
         return game;
     }
 
+    public List<Card> getCards() {
+        return new ArrayList<>(cards);
+    }
+
     public void dealCards(int nbCards) {
         List<Card> gameDeck = game.getGameDeck();
         for (int i = 0; i < nbCards; i++) {
@@ -32,7 +39,7 @@ public class Player {
                 return;
             }
             Card card = gameDeck.remove(0);
-            hand.add(card);
+            cards.add(card);
         }
     }
 

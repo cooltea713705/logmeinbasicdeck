@@ -34,7 +34,7 @@ public class DeckServiceImpl implements DeckService {
     }
 
     @Override
-    public Deck get(UUID uuid) {
-        return Objects.requireNonNull(decks.get(uuid));
+    public Deck get(UUID deckId) {
+        return Objects.requireNonNull(decks.get(deckId));
     }
 }

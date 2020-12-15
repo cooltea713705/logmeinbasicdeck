@@ -45,11 +45,11 @@ class GamePlayerServiceImplTest {
     @Test
     void delete_nominal_flow() {
         Player player = new Player(gameMock);
-        UUID uuid = player.uuid();
-        players.put(uuid, player);
+        UUID playerId = player.uuid();
+        players.put(playerId, player);
 
-        gamePlayerService.delete(gameMock, uuid);
+        gamePlayerService.delete(gameMock, playerId);
 
-        assertThat(players).doesNotContainEntry(uuid, player);
+        assertThat(players).doesNotContainEntry(playerId, player);
     }
 }

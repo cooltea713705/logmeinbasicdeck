@@ -35,11 +35,16 @@ public class GamePlayerServiceImpl implements GamePlayerService {
     }
 
     @Override
-    public void delete(Game game, UUID uuid) {
-        Player player = players.remove(uuid);
+    public void delete(Game game, UUID playerId) {
+        Player player = players.remove(playerId);
         if (player == null) {
             throw new IllegalArgumentException("Could not remove player");
         }
         game.removePlayer(player);
+    }
+
+    @Override
+    public void dealCards(Game game, UUID playerId, int nbCards) {
+
     }
 }

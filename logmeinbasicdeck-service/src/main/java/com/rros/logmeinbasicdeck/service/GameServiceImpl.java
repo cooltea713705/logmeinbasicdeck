@@ -46,8 +46,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void delete(UUID uuid) {
-        Game result = games.remove(uuid);
+    public void delete(UUID gameId) {
+        Game result = games.remove(gameId);
         if (result == null) {
             throw new IllegalArgumentException("Could not remove game");
         }

@@ -7,5 +7,7 @@ import java.util.UUID;
 public interface GamePlayerService {
     UUID create(Game game);
 
-    void delete(Game game, UUID uuid);
+    void delete(Game game, UUID playerId);
+
+    void dealCards(Game game, UUID playerId, int nbCards);
 }

@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface DeckService {
     UUID create();
 
-    Deck get(UUID uuid);
+    Deck get(UUID deckId);
 }

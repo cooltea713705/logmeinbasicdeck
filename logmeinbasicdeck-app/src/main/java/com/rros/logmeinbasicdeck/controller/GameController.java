@@ -29,8 +29,8 @@ public class GameController {
         return gameService.create();
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") UUID uuid) {
-        gameService.delete(uuid);
+    @DeleteMapping("/{gameId}")
+    public void delete(@PathVariable("gameId") UUID gameId) {
+        gameService.delete(gameId);
     }
 }

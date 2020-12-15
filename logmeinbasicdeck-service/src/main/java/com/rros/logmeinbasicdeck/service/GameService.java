@@ -12,7 +12,7 @@ public interface GameService {
 
     UUID create();
 
-    void delete(UUID uuid);
+    void delete(UUID gameId);
 
     void add(UUID gameId, UUID deckId);
 }

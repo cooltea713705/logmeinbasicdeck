@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Random;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +22,7 @@ class GamePlayerControllerTest {
 
     public static final UUID RANDOM_GAME_UUID = UUID.randomUUID();
     public static final UUID RANDOM_PLAYER_UUID = UUID.randomUUID();
+    public static final int NB_CARDS = new Random().nextInt();
 
     @InjectMocks
     private GamePlayerController gamePlayerController;
@@ -43,11 +45,11 @@ class GamePlayerControllerTest {
     void create_nominal_flow() {
         when(gamePlayerServiceMock.create(gameMock)).thenReturn(RANDOM_PLAYER_UUID);
 
-        UUID uuid = gamePlayerController.create(RANDOM_GAME_UUID);
+        UUID gameId = gamePlayerController.create(RANDOM_GAME_UUID);
 
         verify(gameServiceMock).get(RANDOM_GAME_UUID);
         verify(gamePlayerServiceMock).create(gameMock);
-        assertThat(uuid).isEqualTo(RANDOM_PLAYER_UUID);
+        assertThat(gameId).isEqualTo(RANDOM_PLAYER_UUID);
     }
 
     @Test
@@ -55,5 +57,13 @@ class GamePlayerControllerTest {
         gamePlayerController.delete(RANDOM_GAME_UUID, RANDOM_PLAYER_UUID);
 
         verify(gamePlayerServiceMock).delete(gameMock, RANDOM_PLAYER_UUID);
+    }
+
+    @Test
+    void dealCards_nominal_flow() {
+        gamePlayerController.dealCards(RANDOM_GAME_UUID, RANDOM_PLAYER_UUID, NB_CARDS);
+
+        verify(gameServiceMock).get(RANDOM_GAME_UUID);
+        verify(gamePlayerServiceMock).dealCards(gameMock, RANDOM_PLAYER_UUID, NB_CARDS);
     }
 }

@@ -55,9 +55,9 @@ class GameServiceImplTest {
 
     @Test
     void create_nominal_flow() {
-        UUID uuid = gameService.create();
+        UUID gameId = gameService.create();
 
-        assertThat(games).containsKeys(uuid);
+        assertThat(games).containsKeys(gameId);
     }
 
     @Test

@@ -27,9 +27,15 @@ public class GamePlayerController {
         return gamePlayerService.create(game);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("gameId") UUID gameId, @PathVariable("id") UUID uuid) {
+    @DeleteMapping("/{playerId}")
+    public void delete(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId) {
         Game game = gameService.get(gameId);
-        gamePlayerService.delete(game, uuid);
+        gamePlayerService.delete(game, playerId);
+    }
+
+    @PostMapping("/{playerId}/dealCards")
+    public void dealCards(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId, @RequestBody int nbCards) {
+        Game game = gameService.get(gameId);
+        gamePlayerService.dealCards(game, playerId, nbCards);
     }
 }

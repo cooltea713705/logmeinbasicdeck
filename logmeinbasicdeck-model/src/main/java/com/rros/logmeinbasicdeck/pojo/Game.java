@@ -18,8 +18,8 @@ public class Game {
         this(UUID.randomUUID(), new HashMap<>(), new HashSet<>());
     }
 
-    private Game(UUID uuid, Map<Player, Set<Card>> players, Set<Deck> decks) {
-        this.uuid = uuid;
+    private Game(UUID gameId, Map<Player, Set<Card>> players, Set<Deck> decks) {
+        this.uuid = gameId;
         this.players = players;
         decks.forEach(this::addDeck);
     }

@@ -33,9 +33,9 @@ class DeckServiceImplTest {
 
     @Test
     void create_nominal_flow() {
-        UUID uuid = deckService.create();
+        UUID deckId = deckService.create();
 
-        assertThat(decks).containsKey(uuid);
+        assertThat(decks).containsKey(deckId);
     }
 
     @Test

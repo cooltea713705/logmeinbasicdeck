@@ -5,6 +5,7 @@ import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.model.Player;
 import com.rros.logmeinbasicdeck.service.GamePlayerService;
 import com.rros.logmeinbasicdeck.service.GameService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,18 +28,21 @@ public class GamePlayerController {
         this.gamePlayerService = gamePlayerService;
     }
 
+    @Operation(summary = "Add a player to a game")
     @PostMapping
     public UUID create(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);
         return gamePlayerService.create(game);
     }
 
+    @Operation(summary = "Delete a player from a game")
     @DeleteMapping("/{playerId}")
     public void delete(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId) {
         Game game = gameService.get(gameId);
         gamePlayerService.delete(game, playerId);
     }
 
+    @Operation(summary = "Get the player and their card values ordered by descending value")
     @GetMapping
     public List<Map.Entry<UUID, Integer>> get(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);
@@ -52,12 +56,14 @@ public class GamePlayerController {
         return collect.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toList());
     }
 
+    @Operation(summary = "Deal cards to a player")
     @PostMapping("/{playerId}/dealCards")
     public void dealCards(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId, @RequestBody int nbCards) {
         Game game = gameService.get(gameId);
         gamePlayerService.dealCards(game, playerId, nbCards);
     }
 
+    @Operation(summary = "Get the cards of a player")
     @GetMapping("/{playerId}/cards")
     public List<Card> getCards(@PathVariable("gameId") UUID gameId, @PathVariable("playerId") UUID playerId) {
         Game game = gameService.get(gameId);

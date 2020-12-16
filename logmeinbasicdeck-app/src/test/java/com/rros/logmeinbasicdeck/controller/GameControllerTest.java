@@ -37,10 +37,10 @@ class GameControllerTest {
     }
 
     @Test
-    void add_nominal_flow() {
+    void create_nominal_flow() {
         when(gameServiceMock.create()).thenReturn(RANDOM_GAME_UUID);
 
-        UUID gameId = gameController.add();
+        UUID gameId = gameController.create();
 
         verify(gameServiceMock).create();
         assertThat(gameId).isEqualTo(RANDOM_GAME_UUID);

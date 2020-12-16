@@ -1,6 +1,7 @@
 package com.rros.logmeinbasicdeck.controller;
 
 import com.rros.logmeinbasicdeck.service.DeckService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class DeckController {
         this.deckService = deckService;
     }
 
+    @Operation(summary = "Create deck")
     @PostMapping
     public UUID create() {
         return deckService.create();

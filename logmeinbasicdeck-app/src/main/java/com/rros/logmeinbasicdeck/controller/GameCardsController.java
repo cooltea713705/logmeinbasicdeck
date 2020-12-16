@@ -7,6 +7,7 @@ import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.model.Suit;
 import com.rros.logmeinbasicdeck.service.GameCardsService;
 import com.rros.logmeinbasicdeck.service.GameService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,24 +33,28 @@ public class GameCardsController {
         this.gameCardsService = gameCardsService;
     }
 
+    @Operation(summary = "Get the count of non-dealt cards per suit")
     @GetMapping("/cards-suits")
     public SortedMap<Suit<?>, Long> getNumberOfCardsBySuit(@PathVariable UUID gameId) {
         Game game = gameService.get(gameId);
         return gameCardsService.getNumberOfCardsBySuit(game);
     }
 
+    @Operation(summary = "Get the count of non-dealt cards per suit and per value ordered by suit and descending value")
     @GetMapping("/cards-suits-values")
     public <U extends Suit<U>, V extends CardValue<V>> SortedMap<SuitCardValue<U, V>, Long> getNumberOfCardsBySuitAndByValue(@PathVariable UUID gameId) {
         Game game = gameService.get(gameId);
         return gameCardsService.getNumberOfCardsBySuitAndByValue(game);
     }
 
+    @Operation(summary = "Get all non-dealt cards")
     @GetMapping("/cards")
     public List<Card> get(@PathVariable UUID gameId) {
         Game game = gameService.get(gameId);
         return gameCardsService.get(game);
     }
 
+    @Operation(summary = "Shuffle non-dealt cards")
     @PostMapping("/shuffles")
     public void shuffle(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);

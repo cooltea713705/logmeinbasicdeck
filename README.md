@@ -33,21 +33,27 @@ The following trade-offs were made to fit the project duration.
 ### Design
 
 * Implement DTO layer and separate concerns
-* Implement usage
-  of [Spring Data Repository](https://docs.spring.io/spring-data/keyvalue/docs/current/reference/html/#reference)
-* Configurable shuffle
+* Implement usage of Spring Data Repository (for
+  instance [Spring Data Key Value Repository](https://docs.spring.io/spring-data/keyvalue/docs/current/reference/html/#reference))
 * Filtering, sorting, paginating GET results
-* API versioning
 * [Hypermedia as the Engine of Application State](https://en.wikipedia.org/wiki/HATEOAS)
-* Configurable Deck / Suits / CardValues
+* API versioning
 * RESTful dealCards
-* Proper handling of grouping (by suit, ...)
-* Docker
+* Proper handling of grouping (by suit, ...) as opposed to 'cards-suits', 'cards-suits-values'
+
+### Integration
+
+* Containerisation ([Docker](https://www.docker.com/)...)
 * Hosting / CI / CD
-* Player definition across Games => model revisit needed
+* Integrated test suite ([Postman](https://www.postman.com/)...)
+
+### Nice-to-haves
+
+* Configurable Deck / Suits / CardValues
 * GUI
 * i18n
-* Integrated test suite ([Postman...](https://www.postman.com/))
+* Configurable shuffle ([Groovy](https://groovy-lang.org/), ...)
+* Player definition across Games => model revisit needed
 
 Problem Statement
 -----------------

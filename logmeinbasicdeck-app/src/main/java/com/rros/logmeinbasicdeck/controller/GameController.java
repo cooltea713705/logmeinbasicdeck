@@ -1,6 +1,7 @@
 package com.rros.logmeinbasicdeck.controller;
 
 import com.rros.logmeinbasicdeck.service.GameService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +19,19 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    @Operation(summary = "List all games")
     @GetMapping
     public Set<UUID> get() {
         return gameService.get();
     }
 
+    @Operation(summary = "Create a game")
     @PostMapping
-    public UUID add() {
+    public UUID create() {
         return gameService.create();
     }
 
+    @Operation(summary = "Delete a game")
     @DeleteMapping("/{gameId}")
     public void delete(@PathVariable("gameId") UUID gameId) {
         gameService.delete(gameId);

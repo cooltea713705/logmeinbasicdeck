@@ -3,6 +3,7 @@ package com.rros.logmeinbasicdeck.controller;
 import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.service.GameDeckService;
 import com.rros.logmeinbasicdeck.service.GameService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class GameDeckController {
         this.gameDeckService = gameDeckService;
     }
 
+    @Operation(summary = "Add a deck to a game")
     @PostMapping
     public void add(@PathVariable("gameId") UUID gameId, @RequestBody UUID deckId) {
         Game game = gameService.get(gameId);

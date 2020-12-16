@@ -40,9 +40,10 @@ public class Game {
         gameDeck.addAll(player.getCards());
     }
 
-    public synchronized void shuffleGameDeck() {
-        // TODO 2020-12-15 rosr implement! make sure it's thread safe
-        Collections.shuffle(gameDeck);
+    public void shuffleGameDeck() {
+        synchronized (gameDeck) {
+            Collections.shuffle(gameDeck);
+        }
     }
 
     public List<Card> getGameDeck() {

@@ -1,7 +1,6 @@
 package com.rros.logmeinbasicdeck.service;
 
 import com.rros.logmeinbasicdeck.dto.Shuffle;
-import com.rros.logmeinbasicdeck.dto.ShuffleStatus;
 import com.rros.logmeinbasicdeck.dto.SuitCardValue;
 import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.CardValue;
@@ -44,24 +43,13 @@ public class GameCardsServiceImpl implements GameCardsService {
     }
 
     @Override
-    public UUID shuffle(Game game) {
-        Shuffle shuffle = new Shuffle(game);
-        shuffles.put(shuffle.uuid(), shuffle);
-        EXECUTOR_SERVICE.execute(() -> {
-            game.shuffleGameDeck();
-            shuffle.markCompleted();
-        });
-        return shuffle.uuid();
-    }
-
-    @Override
-    public ShuffleStatus getShuffle(UUID shuffleId) {
-        Shuffle shuffle = Objects.requireNonNull(shuffles.get(shuffleId));
-        return shuffle.getShuffleStatus();
-    }
-
-    @Override
     public List<Card> get(Game game) {
         return game.getGameDeck();
+    }
+
+    @Override
+    public void shuffle(Game game) {
+        // TODO 2020-12-15 rosr handle concurrent access
+        game.shuffleGameDeck();
     }
 }

@@ -1,6 +1,5 @@
 package com.rros.logmeinbasicdeck.controller;
 
-import com.rros.logmeinbasicdeck.dto.ShuffleStatus;
 import com.rros.logmeinbasicdeck.dto.SuitCardValue;
 import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.CardValue;
@@ -33,12 +32,6 @@ public class GameCardsController {
         this.gameCardsService = gameCardsService;
     }
 
-    @GetMapping("/cards")
-    public List<Card> get(@PathVariable UUID gameId) {
-        Game game = gameService.get(gameId);
-        return gameCardsService.get(game);
-    }
-
     @GetMapping("/cards-suits")
     public SortedMap<Suit<?>, Long> getNumberOfCardsBySuit(@PathVariable UUID gameId) {
         Game game = gameService.get(gameId);
@@ -51,15 +44,15 @@ public class GameCardsController {
         return gameCardsService.getNumberOfCardsBySuitAndByValue(game);
     }
 
-    @PostMapping("/shuffles")
-    public UUID shuffle(@PathVariable("gameId") UUID gameId) {
+    @GetMapping("/cards")
+    public List<Card> get(@PathVariable UUID gameId) {
         Game game = gameService.get(gameId);
-        return gameCardsService.shuffle(game);
+        return gameCardsService.get(game);
     }
 
-    @GetMapping("/shuffles/{shuffleId}")
-    public ShuffleStatus shuffle(@PathVariable("gameId") UUID gameId, @PathVariable("shuffleId") UUID shuffleId) {
+    @PostMapping("/shuffles")
+    public void shuffle(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);
-        return gameCardsService.getShuffle(shuffleId);
+        gameCardsService.shuffle(game);
     }
 }

@@ -8,6 +8,7 @@ public class Game {
     private final UUID uuid;
     private final List<Player> players;
     private final List<Card> gameDeck = Collections.synchronizedList(new ArrayList<>());
+    private final Set<Deck> decks = new HashSet<>();
 
     public Game() {
         this(UUID.randomUUID(), new ArrayList<>(), new HashSet<>());
@@ -24,6 +25,7 @@ public class Game {
     }
 
     public void addDeck(Deck deck) {
+        decks.add(deck);
         gameDeck.addAll(deck);
     }
 
@@ -68,5 +70,9 @@ public class Game {
 
     public List<Player> getPlayers() {
         return new ArrayList<>(players);
+    }
+
+    public Set<Deck> getDecks() {
+        return new HashSet<>(decks);
     }
 }

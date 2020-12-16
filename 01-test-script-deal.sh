@@ -13,10 +13,10 @@ curl --fail -s -X DELETE "http://localhost:8080/games/$gameId"
 gameId=$( curl --fail -s -X POST "http://localhost:8080/games" | sed -e 's/\"//g' )
 
 # Create deck
-deckId=$( curl --fail -s -X POST "http://localhost:8080/decks" | sed -e 's/\"//g' )
+deckId1=$( curl --fail -s -X POST "http://localhost:8080/decks" | sed -e 's/\"//g' )
 
 # Add deck to game
-curl --fail -s -X POST "http://localhost:8080/games/$gameId/decks" -H "Content-Type: application/json" --data "\"$deckId\""
+curl --fail -s -X POST "http://localhost:8080/games/$gameId/decks" -H "Content-Type: application/json" --data "\"$deckId1\""
 
 # Add player to game
 playerId=$( curl --fail -s -X POST "http://localhost:8080/games/$gameId/players" | sed -e 's/\"//g' )
@@ -57,10 +57,10 @@ if (( $nbCards != 52 )); then
 fi
 
 # Create deck
-deckId=$( curl --fail -s -X POST "http://localhost:8080/decks" | sed -e 's/\"//g' )
+deckId2=$( curl --fail -s -X POST "http://localhost:8080/decks" | sed -e 's/\"//g' )
 
 # Add deck to game
-curl --fail -s -X POST "http://localhost:8080/games/$gameId/decks" -H "Content-Type: application/json" --data "\"$deckId\""
+curl --fail -s -X POST "http://localhost:8080/games/$gameId/decks" -H "Content-Type: application/json" --data "\"$deckId2\""
 
 # Deal 1 more card to player
 curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId/dealCards" -H "Content-Type: application/json" --data "1"
@@ -74,5 +74,9 @@ fi
 
 # Remove game
 curl --fail -s -X DELETE "http://localhost:8080/games/$gameId"
+
+# Remove deck1, deck2
+curl --fail -s -X DELETE "http://localhost:8080/decks/$deckId1"
+curl --fail -s -X DELETE "http://localhost:8080/decks/$deckId2"
 
 echo "All passed!"

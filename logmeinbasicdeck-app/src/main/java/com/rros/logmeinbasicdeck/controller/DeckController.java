@@ -3,9 +3,7 @@ package com.rros.logmeinbasicdeck.controller;
 import com.rros.logmeinbasicdeck.service.DeckService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -24,5 +22,11 @@ public class DeckController {
     @PostMapping
     public UUID create() {
         return deckService.create();
+    }
+
+    @Operation(summary = "Remove deck")
+    @DeleteMapping("/{deckId}")
+    public void delete(@PathVariable("deckId") UUID deckId) {
+        deckService.delete(deckId);
     }
 }

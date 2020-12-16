@@ -41,5 +41,6 @@ class GameDeckServiceImplTest {
 
         verify(deckServiceMock).get(RANDOM_DECK_UUID);
         verify(gameMock).addDeck(deckMock);
+        verify(deckServiceMock).associate(deckMock, gameMock);
     }
 }

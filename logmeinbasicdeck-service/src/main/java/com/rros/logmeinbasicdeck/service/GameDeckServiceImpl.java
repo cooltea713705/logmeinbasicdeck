@@ -23,5 +23,6 @@ public class GameDeckServiceImpl implements GameDeckService {
 
         // TODO 2020-12-15 rosr implement integrity constraints (make sure suits and card values are all matching)
         game.addDeck(deck);
+        deckService.associate(deck, game);
     }
 }

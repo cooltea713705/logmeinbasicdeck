@@ -1,10 +1,7 @@
 package com.rros.logmeinbasicdeck.controller;
 
 import com.rros.logmeinbasicdeck.dto.SuitCardValue;
-import com.rros.logmeinbasicdeck.model.Game;
-import com.rros.logmeinbasicdeck.model.StandardCardValue;
-import com.rros.logmeinbasicdeck.model.StandardSuit;
-import com.rros.logmeinbasicdeck.model.Suit;
+import com.rros.logmeinbasicdeck.model.*;
 import com.rros.logmeinbasicdeck.service.GameCardsService;
 import com.rros.logmeinbasicdeck.service.GameService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GameCardsControllerTest {
@@ -74,5 +68,24 @@ class GameCardsControllerTest {
         verify(gameServiceMock).get(RANDOM_GAME_UUID);
         verify(gameCardsServiceMock).getNumberOfCardsBySuitAndByValue(gameMock);
         assertThat(nbCardsBySuitAndByValue).isEqualTo(CARDS_BY_SUIT_AND_BY_VALUE);
+    }
+
+    @Test
+    void get_nominal_flow() {
+        Card card = new Card(mock(Deck.class), StandardSuit.SPADES, StandardCardValue.JACK);
+        when(gameCardsServiceMock.get(gameMock)).thenReturn(Collections.singletonList(card));
+        List<Card> cards = gameCardsController.get(RANDOM_GAME_UUID);
+
+        verify(gameServiceMock).get(RANDOM_GAME_UUID);
+        verify(gameCardsServiceMock).get(gameMock);
+        assertThat(cards).containsExactly(card);
+    }
+
+    @Test
+    void shuffle_nominal_flow() {
+        gameCardsController.shuffle(RANDOM_GAME_UUID);
+
+        verify(gameServiceMock).get(RANDOM_GAME_UUID);
+        verify(gameCardsServiceMock).shuffle(gameMock);
     }
 }

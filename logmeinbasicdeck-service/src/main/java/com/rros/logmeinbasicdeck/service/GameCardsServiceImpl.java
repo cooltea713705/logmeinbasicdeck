@@ -1,35 +1,19 @@
 package com.rros.logmeinbasicdeck.service;
 
-import com.rros.logmeinbasicdeck.dto.Shuffle;
 import com.rros.logmeinbasicdeck.dto.SuitCardValue;
 import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.CardValue;
 import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.model.Suit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Service
 public class GameCardsServiceImpl implements GameCardsService {
-
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
-
-    private final Map<UUID, Shuffle> shuffles;
-
-    GameCardsServiceImpl(Map<UUID, Shuffle> shuffles) {
-        this.shuffles = shuffles;
-    }
-
-    @Autowired
-    public GameCardsServiceImpl() {
-        this(new ConcurrentHashMap<>());
-    }
 
     @Override
     public SortedMap<Suit<?>, Long> getNumberOfCardsBySuit(Game game) {

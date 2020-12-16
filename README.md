@@ -41,6 +41,7 @@ The following trade-offs were made to fit the project duration.
 * [Hypermedia as the Engine of Application State](https://en.wikipedia.org/wiki/HATEOAS)
 * Configurable Deck / Suits / CardValues
 * RESTful dealCards
+* Proper handling of grouping (by suit, ...)
 * Docker
 * Hosting / CI / CD
 * Player definition across Games => model revisit needed

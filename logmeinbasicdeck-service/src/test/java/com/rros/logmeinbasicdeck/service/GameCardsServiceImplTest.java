@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.SortedMap;
 
 import static com.rros.logmeinbasicdeck.model.StandardCardValue.ACE;
@@ -17,7 +19,7 @@ import static com.rros.logmeinbasicdeck.model.StandardCardValue.FIVE;
 import static com.rros.logmeinbasicdeck.model.StandardSuit.CLUBS;
 import static com.rros.logmeinbasicdeck.model.StandardSuit.DIAMONDS;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GameCardsServiceImplTest {
@@ -36,7 +38,8 @@ class GameCardsServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        when(gameMock.getGameDeck()).thenReturn(
+        // XXX 2020-12-16 rosr lenient because there is at least one test method where the stubbed method is not called
+        lenient().when(gameMock.getGameDeck()).thenReturn(
                 Arrays.asList(
                         new Card(deckMock, DIAMONDS, ACE),
                         new Card(deckMock, DIAMONDS, FIVE),
@@ -61,5 +64,22 @@ class GameCardsServiceImplTest {
         assertThat(numberOfCardsBySuitAndByValue.get(new SuitCardValue<>(CLUBS, FIVE))).isGreaterThanOrEqualTo(1);
         assertThat(numberOfCardsBySuitAndByValue.get(new SuitCardValue<>(DIAMONDS, FIVE))).isGreaterThanOrEqualTo(2);
         assertThat(numberOfCardsBySuitAndByValue.get(new SuitCardValue<>(DIAMONDS, ACE))).isGreaterThanOrEqualTo(1);
+    }
+
+    @Test
+    void get_nominal_flow() {
+        Card card = new Card(mock(Deck.class), StandardSuit.HEARTS, StandardCardValue.QUEEN);
+        when(gameMock.getGameDeck()).thenReturn(Collections.singletonList(card));
+        List<Card> cards = gameCardsService.get(gameMock);
+
+        verify(gameMock).getGameDeck();
+        assertThat(cards).containsExactly(card);
+    }
+
+    @Test
+    void shuffle_nominal_flow() {
+        gameCardsService.shuffle(gameMock);
+
+        verify(gameMock).shuffleGameDeck();
     }
 }

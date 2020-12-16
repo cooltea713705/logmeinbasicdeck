@@ -1,18 +1,36 @@
 package com.rros.logmeinbasicdeck.service;
 
+import com.rros.logmeinbasicdeck.dto.Shuffle;
+import com.rros.logmeinbasicdeck.dto.ShuffleStatus;
 import com.rros.logmeinbasicdeck.dto.SuitCardValue;
 import com.rros.logmeinbasicdeck.model.Card;
 import com.rros.logmeinbasicdeck.model.CardValue;
 import com.rros.logmeinbasicdeck.model.Game;
 import com.rros.logmeinbasicdeck.model.Suit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @Service
 public class GameCardsServiceImpl implements GameCardsService {
+
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
+
+    private final Map<UUID, Shuffle> shuffles;
+
+    GameCardsServiceImpl(Map<UUID, Shuffle> shuffles) {
+        this.shuffles = shuffles;
+    }
+
+    @Autowired
+    public GameCardsServiceImpl() {
+        this(new ConcurrentHashMap<>());
+    }
 
     @Override
     public SortedMap<Suit<?>, Long> getNumberOfCardsBySuit(Game game) {
@@ -23,5 +41,27 @@ public class GameCardsServiceImpl implements GameCardsService {
     public <U extends Suit<U>, V extends CardValue<V>> SortedMap<SuitCardValue<U, V>, Long> getNumberOfCardsBySuitAndByValue(Game game) {
         // TODO 2020-12-15 rosr generify Deck to correctly support this (Game generics is determined at runtime though)
         return game.getGameDeck().stream().collect(Collectors.groupingBy(card -> new SuitCardValue<>((U) card.suit(), (V) card.cardValue()), TreeMap::new, Collectors.counting()));
+    }
+
+    @Override
+    public UUID shuffle(Game game) {
+        Shuffle shuffle = new Shuffle(game);
+        shuffles.put(shuffle.uuid(), shuffle);
+        EXECUTOR_SERVICE.execute(() -> {
+            game.shuffleGameDeck();
+            shuffle.markCompleted();
+        });
+        return shuffle.uuid();
+    }
+
+    @Override
+    public ShuffleStatus getShuffle(UUID shuffleId) {
+        Shuffle shuffle = Objects.requireNonNull(shuffles.get(shuffleId));
+        return shuffle.getShuffleStatus();
+    }
+
+    @Override
+    public List<Card> get(Game game) {
+        return game.getGameDeck();
     }
 }

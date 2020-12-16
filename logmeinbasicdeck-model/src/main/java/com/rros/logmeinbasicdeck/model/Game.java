@@ -35,8 +35,14 @@ public class Game {
     }
 
     public void removePlayer(Player player) {
-        // TODO 2020-12-14 rosr decide what to do with dealt cards
         players.remove(player);
+        // XXX 2020-12-15 rosr added player card back to game deck
+        gameDeck.addAll(player.getCards());
+    }
+
+    public synchronized void shuffleGameDeck() {
+        // TODO 2020-12-15 rosr implement! make sure it's thread safe
+        Collections.shuffle(gameDeck);
     }
 
     public List<Card> getGameDeck() {

@@ -14,11 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class GameServiceImplTest {
 
-    public static final UUID RANDOM_DECK_UUID = UUID.randomUUID();
     public static final UUID RANDOM_GAME_UUID = UUID.randomUUID();
-
-    @Mock
-    private DeckService deckServiceMock;
 
     @Mock
     private Game gameMock;
@@ -30,13 +26,13 @@ class GameServiceImplTest {
     @BeforeEach
     void setUp() {
         games = new HashMap<>();
-        gameService = new GameServiceImpl(deckServiceMock, games);
+        gameService = new GameServiceImpl(games);
     }
 
     @Test
     void get_nominal_flow() {
         games = Collections.singletonMap(RANDOM_GAME_UUID, gameMock);
-        gameService = new GameServiceImpl(deckServiceMock, games);
+        gameService = new GameServiceImpl(games);
 
         Set<UUID> uuids = gameService.get();
 
@@ -46,7 +42,7 @@ class GameServiceImplTest {
     @Test
     void get_single_nominal_flow() {
         games = Collections.singletonMap(RANDOM_GAME_UUID, gameMock);
-        gameService = new GameServiceImpl(deckServiceMock, games);
+        gameService = new GameServiceImpl(games);
 
         Game game = gameService.get(RANDOM_GAME_UUID);
 

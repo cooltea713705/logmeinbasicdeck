@@ -49,7 +49,6 @@ public class GameCardsServiceImpl implements GameCardsService {
 
     @Override
     public void shuffle(Game game) {
-        // TODO 2020-12-15 rosr handle concurrent access
         game.shuffleGameDeck();
     }
 }

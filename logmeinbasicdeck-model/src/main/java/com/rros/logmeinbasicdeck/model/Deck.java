@@ -10,7 +10,7 @@ public class Deck extends HashSet<Card> {
 
     private Deck(UUID uuid, Set<? extends Suit<?>> suits, Set<? extends CardValue<?>> cardValues) {
         this.uuid = uuid;
-        // todo make immutable
+        // TODO 2020-12-15 rosr make immutable
         suits.forEach(suit -> cardValues.forEach(cardValue -> this.add(new Card(this, suit, cardValue))));
     }
 

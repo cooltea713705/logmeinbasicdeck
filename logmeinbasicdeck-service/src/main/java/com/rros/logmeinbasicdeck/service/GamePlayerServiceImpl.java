@@ -31,7 +31,6 @@ public class GamePlayerServiceImpl implements GamePlayerService {
         Player player = new Player(game);
         Player result = players.put(player.uuid(), player);
         if (result != null) {
-            // TODO this pattern is incorrect (no transaction, the original player has been removed)
             throw new IllegalStateException("Could not add player");
         }
         return player.uuid();

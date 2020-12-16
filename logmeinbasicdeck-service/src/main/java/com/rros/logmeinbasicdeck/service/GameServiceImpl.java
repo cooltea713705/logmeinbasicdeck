@@ -10,17 +10,14 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class GameServiceImpl implements GameService {
 
-    // TODO 2020-12-14 rosr replace with repo
     private final Map<UUID, Game> games;
-    private final DeckService deckService;
 
     @Autowired
-    public GameServiceImpl(DeckService deckService) {
-        this(deckService, new ConcurrentHashMap<>());
+    public GameServiceImpl() {
+        this(new ConcurrentHashMap<>());
     }
 
-    GameServiceImpl(DeckService deckService, Map<UUID, Game> games) {
-        this.deckService = deckService;
+    GameServiceImpl(Map<UUID, Game> games) {
         this.games = games;
     }
 

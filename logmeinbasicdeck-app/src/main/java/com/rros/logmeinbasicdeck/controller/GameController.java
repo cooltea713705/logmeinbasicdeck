@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 import java.util.UUID;
 
-// TODO 2020-12-14 rosr exceptionController
 @RestController
 @RequestMapping("games")
 public class GameController {

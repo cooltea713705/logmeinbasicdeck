@@ -1,7 +1,6 @@
 package com.rros.logmeinbasicdeck.model;
 
 public enum StandardCardValue implements CardValue<StandardCardValue> {
-    // TODO 2020-12-14 rosr make smarter?
     ACE("Ace", 1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK("Jack", 11), QUEEN("Queen", 12), KING("King", 13);
 
     private final String faceValue;

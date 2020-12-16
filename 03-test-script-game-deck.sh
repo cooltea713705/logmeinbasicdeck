@@ -36,9 +36,4 @@ curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId/de
 # Get card count grouped by suit and by value
 curl --fail -s -X GET "http://localhost:8080/games/$gameId/cards-suits-values"
 
-# Get card count grouped by suit and by value
-curl --fail -s -X GET "http://localhost:8080/games/$gameId/cards-suits-values"
-
-# TODO assertion
-
 echo "All passed!"

@@ -18,10 +18,8 @@ playerId=$( curl --fail -s -X POST "http://localhost:8080/games/$gameId/players"
 # Shuffle
 shuffleId=$( curl --fail -s -X POST "http://localhost:8080/games/$gameId/shuffles" | sed -e 's/\"//g' )
 
-# TODO assert (wait)
-
-# Deal 47 cards to player (to allow seeing the shuffle better)
-curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId/dealCards" -H "Content-Type: application/json" --data "47"
+# Deal 42 cards to player (to allow seeing the shuffle better)
+curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId/dealCards" -H "Content-Type: application/json" --data "42"
 
 # Get game deck
 curl --fail -s -X GET "http://localhost:8080/games/$gameId/cards"

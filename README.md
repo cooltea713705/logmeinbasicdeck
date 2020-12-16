@@ -25,10 +25,30 @@ $ mvn spring-boot:run
 %date% %time%  INFO 18223 --- [           main] c.r.l.BasicDeckApplication               : Started BasicDeckApplication in x.xxx seconds (JVM running for x.xxx)
 ```
 
+Once the application is started, the API documentation can be found at http://localhost:8080/swagger-ui.html
+
+Running Integrated Tests
+------------------------
+
+### Requirements
+
+zsh, curl
+
+### How-to
+
+The 4 scripts allow testing the application.
+
+* 01-test-script-deal.sh
+* 02-test-script-player-value.sh
+* 03-test-script-game-deck.sh
+* 04-test-script-shuffle.sh
+
+To execute a script do `./%script-name%` from a command line.
+
 Improvements
 ------------
 
-The following trade-offs were made to fit the project duration.
+The following improvements can be considered (can also be seen as trade-offs made to fit the project duration):
 
 ### Design
 

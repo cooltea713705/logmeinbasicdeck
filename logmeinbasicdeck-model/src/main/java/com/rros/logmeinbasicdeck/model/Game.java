@@ -45,7 +45,16 @@ public class Game {
     void shuffleGameDeck(Random random) {
         // XXX 2020-12-15 rosr synchronized so that shuffling needs to be completed before the gameDeck is made available
         synchronized (gameDeck) {
-            Collections.shuffle(gameDeck, random);
+            // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+            ListIterator<Card> cardListIterator = gameDeck.listIterator(gameDeck.size());
+            while (cardListIterator.hasPrevious()) {
+                int index = cardListIterator.previousIndex();
+                Card previous = cardListIterator.previous();
+                // swap
+                int j = random.nextInt(index + 1);
+                cardListIterator.set(gameDeck.get(j));
+                gameDeck.set(j, previous);
+            }
         }
     }
 

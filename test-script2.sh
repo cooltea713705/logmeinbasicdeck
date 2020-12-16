@@ -33,4 +33,6 @@ curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId3/d
 # Retrieve players and their card values in descending order
 curl --fail -s -X GET "http://localhost:8080/games/$gameId/players"
 
+# TODO assertion
+
 echo "All passed!"

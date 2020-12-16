@@ -43,7 +43,7 @@ public class Game {
     }
 
     void shuffleGameDeck(Random random) {
-        // XXX 2020-12-15 rosr synchronized so that
+        // XXX 2020-12-15 rosr synchronized so that shuffling needs to be completed before the gameDeck is made available
         synchronized (gameDeck) {
             Collections.shuffle(gameDeck, random);
         }

@@ -31,7 +31,7 @@ public class GameController {
         return gameService.create();
     }
 
-    @Operation(summary = "Delete a game")
+    @Operation(summary = "Delete a game, note: this operation does not remove associated entities (players, decks)")
     @DeleteMapping("/{gameId}")
     public void delete(@PathVariable("gameId") UUID gameId) {
         gameService.delete(gameId);

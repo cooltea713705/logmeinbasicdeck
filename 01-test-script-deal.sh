@@ -6,11 +6,26 @@ set -x
 # Create game
 gameId=$( curl --fail -s -X POST "http://localhost:8080/games" | sed -e 's/\"//g' )
 
+# Remove game
+curl --fail -s -X DELETE "http://localhost:8080/games/$gameId"
+
+# Create game
+gameId=$( curl --fail -s -X POST "http://localhost:8080/games" | sed -e 's/\"//g' )
+
 # Create deck
 deckId=$( curl --fail -s -X POST "http://localhost:8080/decks" | sed -e 's/\"//g' )
 
 # Add deck to game
 curl --fail -s -X POST "http://localhost:8080/games/$gameId/decks" -H "Content-Type: application/json" --data "\"$deckId\""
+
+# Add player to game
+playerId=$( curl --fail -s -X POST "http://localhost:8080/games/$gameId/players" | sed -e 's/\"//g' )
+
+# Deal 32 cards to player
+curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId/dealCards" -H "Content-Type: application/json" --data "32"
+
+# Remove player from game
+curl --fail -s -X DELETE "http://localhost:8080/games/$gameId/players/$playerId"
 
 # Add player to game
 playerId=$( curl --fail -s -X POST "http://localhost:8080/games/$gameId/players" | sed -e 's/\"//g' )

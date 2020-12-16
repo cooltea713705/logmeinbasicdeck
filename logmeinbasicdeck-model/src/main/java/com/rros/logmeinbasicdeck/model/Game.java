@@ -9,7 +9,7 @@ public class Game {
     private final List<Player> players;
     private final Set<Deck> decks = new HashSet<>();
     // TODO 2020-12-15 rosr handle concurrent accesses
-    private final List<Card> gameDeck = new ArrayList<>();
+    private final List<Card> gameDeck = Collections.synchronizedList(new ArrayList<>());
 
     public Game() {
         this(UUID.randomUUID(), new ArrayList<>(), new HashSet<>());
@@ -39,11 +39,15 @@ public class Game {
         players.remove(player);
     }
 
-    List<Card> getGameDeck() {
-        return gameDeck;
+    public List<Card> getGameDeck() {
+        return new ArrayList<>(gameDeck);
     }
 
     public List<Player> getPlayers() {
         return new ArrayList<>(players);
+    }
+
+    List<Card> getInternalGameDeck() {
+        return gameDeck;
     }
 }

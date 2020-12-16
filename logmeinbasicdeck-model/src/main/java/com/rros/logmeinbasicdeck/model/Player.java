@@ -38,7 +38,7 @@ public class Player {
     }
 
     public void dealCards(int nbCards) {
-        List<Card> gameDeck = game.getGameDeck();
+        List<Card> gameDeck = game.getInternalGameDeck();
         for (int i = 0; i < nbCards; i++) {
             if (gameDeck.isEmpty()) {
                 return;

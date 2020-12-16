@@ -41,4 +41,20 @@ if (( $nbCards != 52 )); then
     exit 1
 fi
 
+# Create deck
+deckId=$( curl --fail -s -X POST "http://localhost:8080/decks" | sed -e 's/\"//g' )
+
+# Add deck to game
+curl --fail -s -X POST "http://localhost:8080/games/$gameId/decks" -H "Content-Type: application/json" --data "\"$deckId\""
+
+# Deal 1 more card to player
+curl --fail -s -X POST "http://localhost:8080/games/$gameId/players/$playerId/dealCards" -H "Content-Type: application/json" --data "1"
+
+# Count player's cards (should be 53)
+nbCards=$( curl --fail -s -X GET "http://localhost:8080/games/$gameId/players/$playerId/cards" | grep -o '\"uuid\":\"[^\"]*\"' | sort -u | wc -l | sed -e 's/ //g' )
+
+if (( $nbCards != 53 )); then
+    exit 1
+fi
+
 echo "All passed!"

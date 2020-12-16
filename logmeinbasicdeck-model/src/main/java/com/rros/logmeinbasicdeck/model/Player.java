@@ -37,6 +37,13 @@ public class Player {
         return new ArrayList<>(cards);
     }
 
+    /**
+     * Sums the int value of the player's cards (as long).
+     */
+    public long getSumCardsIntValue() {
+        return cards.stream().map(Card::cardValue).map(CardValue::getIntValue).reduce(0, Integer::sum);
+    }
+
     public void dealCards(int nbCards) {
         List<Card> gameDeck = game.getInternalGameDeck();
         for (int i = 0; i < nbCards; i++) {

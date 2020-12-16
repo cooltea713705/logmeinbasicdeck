@@ -21,7 +21,7 @@ public class GameDeckServiceImpl implements GameDeckService {
     public void add(Game game, UUID deckId) {
         Deck deck = deckService.get(deckId);
 
-        // TODO 2020-12-15 rosr implement integrity constraints (check suits, card values)
+        // TODO 2020-12-15 rosr implement integrity constraints (make sure suits and card values are all matching)
         game.addDeck(deck);
     }
 }

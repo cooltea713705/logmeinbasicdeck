@@ -27,14 +27,24 @@ $ mvn spring-boot:run
 
 Once the application is started, the API documentation can be found at http://localhost:8080/swagger-ui.html
 
-Running Integrated Tests
-------------------------
+Running Tests
+-------------
 
-### Requirements
+### Unit Tests
+
+Use the following command at the root of the project folder to run all unit tests:
+
+```
+$ mvn test
+```
+
+### Integrated Tests
+
+#### Requirements
 
 zsh, curl
 
-### How-to
+#### How-to
 
 The 4 scripts allow testing the application.
 
@@ -43,7 +53,7 @@ The 4 scripts allow testing the application.
 * 03-test-script-game-deck.sh
 * 04-test-script-shuffle.sh
 
-To execute a script do `./%script-name%` from a command line.
+To execute a script execute `./%script-name%` from a command line from the root of the project folder.
 
 Improvements
 ------------

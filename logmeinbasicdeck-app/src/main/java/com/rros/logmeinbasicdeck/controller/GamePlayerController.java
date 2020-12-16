@@ -44,15 +44,14 @@ public class GamePlayerController {
 
     @Operation(summary = "Get the player and their card values ordered by descending value")
     @GetMapping
-    public List<Map.Entry<UUID, Integer>> get(@PathVariable("gameId") UUID gameId) {
+    public List<Map.Entry<UUID, Long>> get(@PathVariable("gameId") UUID gameId) {
         Game game = gameService.get(gameId);
         List<Player> players = gamePlayerService.get(game);
-        Map<UUID, Integer> collect = players.stream().collect(
+        Map<UUID, Long> collect = players.stream().collect(
                 Collectors.toMap(
                         Player::uuid,
-                        // TODO 2020-12-15 rosr move to player (getCardsIntValue())
-                        player -> player.getCards().stream().map(card -> card.cardValue().getIntValue()).reduce(0, Integer::sum)));
-        // TODO 2020-12-15 rosr move to service? (where should aggregation be handled?)
+                        Player::getSumCardsIntValue));
+        // TODO 2020-12-15 rosr move to service? (where should the aggregation/ordering be handled?)
         return collect.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toList());
     }
 

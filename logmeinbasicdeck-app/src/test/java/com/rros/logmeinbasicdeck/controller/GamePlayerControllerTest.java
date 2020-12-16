@@ -21,6 +21,7 @@ class GamePlayerControllerTest {
     public static final UUID RANDOM_GAME_UUID = UUID.randomUUID();
     public static final UUID RANDOM_PLAYER_UUID = UUID.randomUUID();
     public static final int NB_CARDS = new Random().nextInt();
+    public static final long TOTAL_CARDS_INT_VALUE = 3L;
 
     @InjectMocks
     private GamePlayerController gamePlayerController;
@@ -65,13 +66,14 @@ class GamePlayerControllerTest {
         when(playerMock.uuid()).thenReturn(RANDOM_PLAYER_UUID);
 
         List<Player> players = Collections.singletonList(playerMock);
+        when(playerMock.getSumCardsIntValue()).thenReturn(TOTAL_CARDS_INT_VALUE);
         when(gamePlayerServiceMock.get(gameMock)).thenReturn(players);
 
-        List<Map.Entry<UUID, Integer>> entries = gamePlayerController.get(RANDOM_GAME_UUID);
+        List<Map.Entry<UUID, Long>> entries = gamePlayerController.get(RANDOM_GAME_UUID);
 
         verify(gameServiceMock).get(RANDOM_GAME_UUID);
         verify(gamePlayerServiceMock).get(gameMock);
-        assertThat(entries).containsExactly(new AbstractMap.SimpleEntry<>(RANDOM_PLAYER_UUID, 0));
+        assertThat(entries).containsExactly(new AbstractMap.SimpleEntry<>(RANDOM_PLAYER_UUID, 3L));
     }
 
     @Test

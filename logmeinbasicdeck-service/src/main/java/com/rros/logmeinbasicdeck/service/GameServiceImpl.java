@@ -12,13 +12,16 @@ public class GameServiceImpl implements GameService {
 
     private final Map<UUID, Game> games;
 
+    private final GamePlayerService gamePlayerService;
+
     @Autowired
-    public GameServiceImpl() {
-        this(new ConcurrentHashMap<>());
+    public GameServiceImpl(GamePlayerService gamePlayerService) {
+        this(new ConcurrentHashMap<>(), gamePlayerService);
     }
 
-    GameServiceImpl(Map<UUID, Game> games) {
+    GameServiceImpl(Map<UUID, Game> games, GamePlayerService gamePlayerService) {
         this.games = games;
+        this.gamePlayerService = gamePlayerService;
     }
 
     @Override
@@ -47,5 +50,6 @@ public class GameServiceImpl implements GameService {
         if (result == null) {
             throw new IllegalArgumentException("Could not remove game");
         }
+        result.getPlayers().forEach(player -> gamePlayerService.delete(result, player.uuid()));
     }
 }

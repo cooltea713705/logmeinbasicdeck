@@ -53,6 +53,9 @@ The 4 scripts allow testing the application.
 * 03-test-script-game-deck.sh
 * 04-test-script-shuffle.sh
 
+Instead of `mvn spring-boot:run`, use `mvn spring-boot:start` to start application in the background (
+use `mvn spring-boot:stop` when you are done).
+
 To execute a script execute `./%script-name%` from a command line from the root of the project folder.
 
 Improvements

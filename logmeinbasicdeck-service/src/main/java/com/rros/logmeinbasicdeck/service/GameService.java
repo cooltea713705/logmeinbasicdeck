@@ -12,5 +12,10 @@ public interface GameService {
 
     UUID create();
 
+    /**
+     * Deletes a game and its associated players.
+     *
+     * <p>Decks are not removed.
+     */
     void delete(UUID gameId);
 }

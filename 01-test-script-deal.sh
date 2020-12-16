@@ -72,4 +72,7 @@ if (( $nbCards != 53 )); then
     exit 1
 fi
 
+# Remove game
+curl --fail -s -X DELETE "http://localhost:8080/games/$gameId"
+
 echo "All passed!"
